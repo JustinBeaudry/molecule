@@ -1,0 +1,35 @@
+{
+  "name": "Molecule",
+  "version": "0.1.0",
+  "description": "simple CLI for dotfiles management of apm packages for Githubs' Atom Editor",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cli",
+    "atom",
+    "atom editor",
+    "atom packages"
+  ],
+  "author": "JustinBeaudry",
+  "license": "MIT",
+  "preferGlobal": true,
+  "bin": {
+    "molecule": "index.js",
+    "mlcl": "index.js"
+  },
+  "dependencies": {
+    "chalk": "^1.0.0",
+    "graceful-fs": "^3.0.6",
+    "json-stringify-safe": "^5.0.0",
+    "minimist": "^1.1.1",
+    "osenv": "^0.1.0",
+    "progress": "^1.1.8",
+    "q": "^1.2.0",
+    "safe-json-stringify": "^1.0.3",
+    "season": "^5.2.0",
+    "shelljs": "^0.4.0",
+    "vinyl-fs": "^1.0.0",
+    "vinyl-map": "^1.0.1"
+  }
+}
