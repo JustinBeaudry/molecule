@@ -133,12 +133,10 @@ function restore() {
 
       var bar = new ProgressBar(chalk.bold.yellow('  [:bar] :completed/:total'+ os.EOL), {
         total: manifest.length,
-        callback: restoreComplete
+        callback: function restoreComplete() {
+          process.stdout.write(chalk.bold.green('[Molecule] Restored ' + manifest.length + ' packages. Restore Complete!') + os.EOL);
+        }
       });
-
-      function restoreComplete() {
-        process.stdout.write(chalk.bold.green('[Molecule] Restored ' + manifest.length + ' packages. Restore Complete!') + os.EOL);
-      }
 
       process.stdout.write(os.EOL + chalk.bold.white('  ' + manifest.length + ' packages to install' + os.EOL + os.EOL));
 
