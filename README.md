@@ -1,8 +1,6 @@
 Molecule
 ========
 
-![Molecule](https://github.com/JustinBeaudry/molecule/blob/master/molecule.png)
-
 A CLI tool for backing up and restoring Atom Packages.
 
 ## Install
@@ -58,5 +56,3 @@ mlcl -r
 ## ROADMAP
 
 * 0.1.0 - Initial Release
-
-Logo created by [David Chapman](https://thenounproject.com/david.chapman) from the [The Noun Project](thenounproject.com/)
