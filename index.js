@@ -137,7 +137,7 @@ function restore() {
       });
 
       function restoreComplete() {
-        process.stdout.write(chalk.bold.green('[Molecule] Restored ' + manifest.length + 'packages. Restore Complete!') + os.EOL);
+        process.stdout.write(chalk.bold.green('[Molecule] Restored ' + manifest.length + ' packages. Restore Complete!') + os.EOL);
       }
 
       process.stdout.write(os.EOL + chalk.bold.white('  ' + manifest.length + ' packages to install' + os.EOL + os.EOL));
