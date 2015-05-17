@@ -5,11 +5,34 @@ Molecule
 
 A CLI tool for backing up and restoring Atom Packages.
 
-## install
+## Install
 
 ```
 npm i -g molecule
 npm link
+```
+
+## Use
+
+backup packages to manifest.json
+
+```
+mlcl -b
+```
+add these files to your dotfiles gitignore
+
+```
+.atom/compile-cache
+.atom/packages
+.atom/storage
+```
+
+now commit your .atom folder to your dotfiles
+
+when installing atom on a new system just run
+
+```
+mlcl -r
 ```
 
 ## Options
