@@ -6,7 +6,7 @@ A CLI tool for backing up and restoring Atom Packages.
 ## Install
 
 ```
-npm i -g molecule
+npm i -g atom-molecule
 npm link
 ```
 

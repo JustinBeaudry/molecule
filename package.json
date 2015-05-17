@@ -1,5 +1,5 @@
 {
-  "name": "Molecule",
+  "name": "atom-molecule",
   "version": "0.1.0",
   "description": "A CLI tool for backing up and restoring Atom Packages.",
   "scripts": {
