@@ -31,5 +31,15 @@
     "shelljs": "^0.4.0",
     "vinyl-fs": "^1.0.0",
     "vinyl-map": "^1.0.1"
-  }
+  },
+  "main": "index.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JustinBeaudry/molecule.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JustinBeaudry/molecule/issues"
+  },
+  "homepage": "https://github.com/JustinBeaudry/molecule"
 }
