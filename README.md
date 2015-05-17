@@ -1,6 +1,8 @@
 Molecule
 ========
 
+![Molecule](https://github.com/JustinBeaudry/molecule/blob/master/molecule.png)
+
 A CLI tool for backing up and restoring Atom Packages.
 
 ## Options
@@ -15,11 +17,6 @@ A CLI tool for backing up and restoring Atom Packages.
 -h output help
 --help
 ```
-
-## Support
-
-* Node v0.12.2
-* MAC OS X 10.10
 
 ## TODO
 
