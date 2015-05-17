@@ -5,6 +5,13 @@ Molecule
 
 A CLI tool for backing up and restoring Atom Packages.
 
+## install
+
+```
+npm i -g molecule
+npm link
+```
+
 ## Options
 
 ```
