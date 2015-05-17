@@ -58,7 +58,7 @@ function backup(disabled) {
     process.stdout.write(chalk.bold.green('[Molecule] Backing up atom packages to', atomPath + '/' + manifestName + os.EOL));
 
     var manifest = [];
-    var extractPkg = map(function(file) {
+    var extractPkg = map(function(file, filename) {
 
       // file is a Buffer
       file = file.toString();
@@ -68,6 +68,7 @@ function backup(disabled) {
         file = JSON.parse(file);
       } catch (e) {
         errors(e);
+        process.stderr.write(file + chalk.bold.red('failed JSON parsing at filename: ') + filename + os.EOL);
         process.exit(1);
       }
 
@@ -110,6 +111,11 @@ function backup(disabled) {
 function restore() {
   var pkgs;
   checkAllAtomRequirements().then(function() {
+
+    var completed = 0;
+    var errored = 0;
+    var bar;
+
     process.stdout.write(chalk.bold.green('[Molecule] Restoring atom packages from', manifestName, 'at', atomPath + os.EOL));
 
     fs.readFile(path.join(atomPath, manifestName), function(err, manifest) {
@@ -127,20 +133,28 @@ function restore() {
       }
 
       if (!util.isArray(manifest)) {
-        errors(new Error('[Manifest Error] package restore expects manifest to be an array. exiting...'));
+        errors('package restore expects manifest to be an array. exiting...');
         process.exit(1);
       }
 
-      var bar = new ProgressBar(chalk.bold.yellow('  [:bar] :completed/:total'+ os.EOL), {
-        total: manifest.length,
-        callback: function restoreComplete() {
-          process.stdout.write(chalk.bold.green('[Molecule] Restored ' + manifest.length + ' packages. Restore Complete!') + os.EOL);
+      bar = new ProgressBar(
+        chalk.bold.yellow('  [:bar] :completed/:total') +
+        chalk.bold.red(' :errored error(s)')+
+        (argv.s ? '\r' : os.EOL),
+        {
+          total: manifest.length,
+          callback: function restoreComplete() {
+            process.stdout.write(
+              chalk.bold.green('[Molecule] Restored ' + completed + ' packages. ') +
+              chalk.bold.red(errored + ' package') + (errored > 1 ? chalk.bold.red('s') : '') + chalk.bold.red(' failed.') +
+              chalk.bold.green(' Restore Complete!') + os.EOL
+            );
+          }
         }
-      });
+      );
 
       process.stdout.write(os.EOL + chalk.bold.white('  ' + manifest.length + ' packages to install' + os.EOL + os.EOL));
 
-      var completed = 0;
       manifest.forEach(function(pkg) {
         // @TODO allow specification of package version
         if (!pkg || !pkg.name) {
@@ -148,9 +162,15 @@ function restore() {
           return false;
         }
 
-        sh.exec('apm install ' + pkg.name, {silent: argv.s}).output;
-        completed++;
+        if (sh.exec('apm install ' + pkg.name, {silent: argv.s}).code !== 0) {
+          errors(new Error('[Molecule Error] apm failed with a nonzero status code'));
+          errored++;
+        } else {
+          completed++;
+        }
+
         bar.tick({
+          errored: errored,
           completed: completed,
           total: manifest.length
         });
