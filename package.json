@@ -1,7 +1,7 @@
 {
   "name": "Molecule",
   "version": "0.1.0",
-  "description": "simple CLI for dotfiles management of apm packages for Githubs' Atom Editor",
+  "description": "A CLI tool for backing up and restoring Atom Packages.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
