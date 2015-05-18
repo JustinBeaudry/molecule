@@ -42,7 +42,7 @@ mlcl -r
 --restore, -r restores packages from ~/.atom/manifest.json
 [--silence, -s] silence install output from apm
 
---help, -h, ?, output help
+--help, -h, output help
 ```
 
 ## TODO
