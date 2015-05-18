@@ -52,10 +52,11 @@ else
 //====
 // CLI Commands
 //====
-function backup(disabled) {
+function backup() {
 
   var disabled = null;
   var config;
+  
   // forces the backup of disabled dependencies, defaults to skipping
   if (!argv.d) {
     config = CSON.readFileSync(path.join(atomPath, 'config.cson'));

@@ -1,6 +1,6 @@
 {
   "name": "atom-molecule",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "A CLI tool for backing up and restoring Atom Packages.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,8 +15,8 @@
   "license": "MIT",
   "preferGlobal": true,
   "bin": {
-    "molecule": "index.js",
-    "mlcl": "index.js"
+    "molecule": "bin/molecule",
+    "mlcl": "bin/molecule"
   },
   "dependencies": {
     "chalk": "^1.0.0",
@@ -31,7 +31,6 @@
     "vinyl-fs": "^1.0.0",
     "vinyl-map": "^1.0.1"
   },
-  "main": "index.js",
   "devDependencies": {},
   "repository": {
     "type": "git",
