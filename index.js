@@ -144,10 +144,12 @@ function restore() {
         {
           total: manifest.length,
           callback: function restoreComplete() {
+            var hasErrors = errored > 0;
+            var completeText = '[Molecule] Restore Complete!';
             process.stdout.write(
-              chalk.bold.green('[Molecule] Restored ' + completed + ' packages. ') +
-              chalk.bold.red(errored + ' package') + (errored > 1 ? chalk.bold.red('s') : '') + chalk.bold.red(' failed.') +
-              chalk.bold.green(' Restore Complete!') + os.EOL
+              chalk.bold.green('[Molecule] Restored ' + completed + '/' + manifest.length + ' packages. ') +
+              chalk.bold.red(errored + ' package') + (errored > 1 ? chalk.bold.red('s') : '') + chalk.bold.red(' failed.') + os.EOL +
+              (hasErrors ? chalk.bold.yellow(completeText) : chalk.bold.green(completeText)) + os.EOL
             );
           }
         }
@@ -158,12 +160,12 @@ function restore() {
       manifest.forEach(function(pkg) {
         // @TODO allow specification of package version
         if (!pkg || !pkg.name) {
-          errors(new Error('[Molecule Error] package is malformed. skipping package.'));
+          errors('package is malformed. skipping package.');
           return false;
         }
 
         if (sh.exec('apm install ' + pkg.name, {silent: argv.s}).code !== 0) {
-          errors(new Error('[Molecule Error] apm failed with a nonzero status code'));
+          errors('apm failed with a nonzero status code');
           errored++;
         } else {
           completed++;

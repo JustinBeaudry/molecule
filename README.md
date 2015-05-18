@@ -48,8 +48,8 @@ mlcl -r
 
 ## TODO
 
-* install pacakge dependencies ? (does apm do this already?)
-* respect package versions described in package.json
+* install package dependencies ? (does apm do this already?)
+* respect package versions described in package.json (use npm)
 * fallback to git if apm not installed?
 * skip installed packages on restore
 
