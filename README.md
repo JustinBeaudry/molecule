@@ -3,14 +3,14 @@ Molecule
 
 A CLI tool for backing up and restoring Atom Packages.
 
-## Install
+## Install and Setup
 
 ```
 npm i -g atom-molecule
 npm link
 ```
 
-## Use
+## Usage
 
 backup packages to manifest.json
 
@@ -25,7 +25,7 @@ add these files to your dotfiles gitignore
 .atom/storage
 ```
 
-now commit your .atom folder to your dotfiles
+commit your .atom folder to your dotfiles
 
 when installing atom on a new system just run
 

@@ -1,6 +1,6 @@
 {
   "name": "atom-molecule",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "A CLI tool for backing up and restoring Atom Packages.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
