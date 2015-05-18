@@ -36,14 +36,13 @@ mlcl -r
 ## Options
 
 ```
--b backup atom packages to ~/.atom/manifest.json, by default backup will ignore disabledPackages
+--backup, -b, backup atom packages to ~/.atom/manifest.json, by default backup will ignore disabledPackages
 [-d] forces molecule to backup disabledPackages
 
--r restores packages from ~/.atom/manifest.json
-[-d] silence install output from apm
+--restore, -r restores packages from ~/.atom/manifest.json
+[--silence, -s] silence install output from apm
 
--h output help
---help
+--help, -h, ?, output help
 ```
 
 ## TODO

@@ -13,6 +13,7 @@ var util         = require('util');
 var stringify    = require('json-stringify-safe');
 var sh           = require('shelljs');
 var ProgressBar  = require('progress');
+var MlclPkg      = require('../package.json');
 
 var manifestName = 'manifest.json';
 var atomPath     = path.resolve(osenv.home(), '.atom');
@@ -29,22 +30,18 @@ if (!sh.which('apm')) {
 //====
 //  Parse Command Line Arguments
 //====
-if (argv.b)
+if (argv.backup || argv.b)
 {
   checkAtomDirectory();
   backup();
 }
-else if (argv.r)
+else if (argv.restore || argv.r)
 {
   checkAtomDirectory();
   checkAtomPackagesManifest();
   restore();
 }
-else if (argv.h || argv.help)
-{
-  help();
-}
-else
+else if (argv.help || argv.h || argv['?'] || (Object.keys(argv).length === 1 && argv._ && argv._.length === 0))
 {
   help();
 }
@@ -56,7 +53,7 @@ function backup() {
 
   var disabled = null;
   var config;
-  
+
   // forces the backup of disabled dependencies, defaults to skipping
   if (!argv.d) {
     config = CSON.readFileSync(path.join(atomPath, 'config.cson'));
@@ -158,10 +155,15 @@ function restore() {
   process.stdout.write(os.EOL + chalk.bold.white('  ' + manifest.length + ' packages to install' + os.EOL + os.EOL));
 
   manifest.forEach(function(pkg) {
-    // @TODO allow specification of package version
     if (!pkg || !pkg.name) {
       errors('package is malformed. skipping package.');
-      return false;
+      errored++;
+      bar.tick({
+        errored: errored,
+        completed: completed,
+        total: manifest.length
+      });
+      return;
     }
 
     if (sh.exec('apm install ' + pkg.name, {silent: argv.s}).code !== 0) {
@@ -180,25 +182,28 @@ function restore() {
 }
 
 function help() {
-  var eol = os.EOL;
   process.stdout.write(
     [
-      chalk.bold.green('Molecule'),
+      '',
+      chalk.bold.green('\tMolecule version ' + MlclPkg.version),
+      '',
       chalk.green('\tsimple CLI for dotfiles management of apm packages in Githubs\' Atom Editor'),
       chalk.gray('\thttps://github.com/atom/atom'),
-      '[options]',
-      chalk.bold.green('\t-b') + chalk.green(', backup atom packages to ' + atomPath + '/' + manifestName),
+      '',
+      '\t[options]',
+      '\t=========',
+      chalk.bold.green('\t--backup, -b') + chalk.green(', backup atom packages to ' + atomPath + '/' + manifestName),
       chalk.bold.green('\t[-d]') + chalk.green(', backup disabled packages'),
-      eol,
-      chalk.bold.green('\t-r') + chalk.green(', restore atom packages from ' + atomPath + '/' + manifestName),
+      '',
+      chalk.bold.green('\t--restore, -r') + chalk.green(', restore atom packages from ' + atomPath + '/' + manifestName),
       chalk.bold.green('\t[-s]') + chalk.green(', silent install output from apm'),
-      eol,
-      chalk.bold.green('\t-h') + chalk.green(', output help'),
-      chalk.bold.green('\t--help'),
-      eol
-    ].join(eol)
+      '',
+      chalk.bold.green('\t--help, -h') + chalk.green(', output help'),
+      '',
+      ''
+    ].join(os.EOL)
   );
-  process.exit(0);
+  process.exit();
 }
 
 //======
